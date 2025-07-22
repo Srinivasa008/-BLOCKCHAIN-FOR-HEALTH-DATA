@@ -1,47 +1,53 @@
 {
-  "_ethers.alias": {
-    "base64.js": "browser-base64.js"
-  },
-  "_from": "@ethersproject/base64@^5.5.0",
-  "_id": "@ethersproject/base64@5.5.0",
+  "_from": "@ethersproject/bytes@^5.5.0",
+  "_id": "@ethersproject/bytes@5.5.0",
   "_inBundle": false,
-  "_integrity": "sha512-tdayUKhU1ljrlHzEWbStXazDpsx4eg1dBXUSI6+mHlYklOXoXF6lZvw8tnD6oVaWfnMxAgRSKROg3cVKtCcppA==",
-  "_location": "/@ethersproject/base64",
+  "_integrity": "sha512-ABvc7BHWhZU9PNM/tANm/Qx4ostPGadAuQzWTr3doklZOhDlmcBqclrQe/ZXUIj3K8wC28oYeuRa+A37tX9kog==",
+  "_location": "/@ethersproject/bytes",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "@ethersproject/base64@^5.5.0",
-    "name": "@ethersproject/base64",
-    "escapedName": "@ethersproject%2fbase64",
+    "raw": "@ethersproject/bytes@^5.5.0",
+    "name": "@ethersproject/bytes",
+    "escapedName": "@ethersproject%2fbytes",
     "scope": "@ethersproject",
     "rawSpec": "^5.5.0",
     "saveSpec": null,
     "fetchSpec": "^5.5.0"
   },
   "_requiredBy": [
+    "/@ethersproject/abi",
+    "/@ethersproject/abstract-provider",
+    "/@ethersproject/abstract-signer",
+    "/@ethersproject/address",
+    "/@ethersproject/base64",
+    "/@ethersproject/bignumber",
+    "/@ethersproject/hash",
+    "/@ethersproject/keccak256",
+    "/@ethersproject/rlp",
+    "/@ethersproject/signing-key",
+    "/@ethersproject/strings",
+    "/@ethersproject/transactions",
     "/@ethersproject/web"
   ],
-  "_resolved": "https://registry.npmjs.org/@ethersproject/base64/-/base64-5.5.0.tgz",
-  "_shasum": "881e8544e47ed976930836986e5eb8fab259c090",
-  "_spec": "@ethersproject/base64@^5.5.0",
-  "_where": "E:\\manoj\\November21\\hello-eth\\node_modules\\@ethersproject\\web",
+  "_resolved": "https://registry.npmjs.org/@ethersproject/bytes/-/bytes-5.5.0.tgz",
+  "_shasum": "cb11c526de657e7b45d2e0f0246fb3b9d29a601c",
+  "_spec": "@ethersproject/bytes@^5.5.0",
+  "_where": "E:\\manoj\\November21\\hello-eth\\node_modules\\@ethersproject\\transactions",
   "author": {
     "name": "Richard Moore",
     "email": "me@ricmoo.com"
-  },
-  "browser": {
-    "./lib/base64": "./lib/browser-base64.js"
   },
   "bugs": {
     "url": "https://github.com/ethers-io/ethers.js/issues"
   },
   "bundleDependencies": false,
   "dependencies": {
-    "@ethersproject/bytes": "^5.5.0"
+    "@ethersproject/logger": "^5.5.0"
   },
   "deprecated": false,
-  "description": "Base64 coder.",
+  "description": "Bytes utility functions for ethers.",
   "ethereum": "donations.ethers.eth",
   "funding": [
     {
@@ -53,7 +59,7 @@
       "url": "https://www.buymeacoffee.com/ricmoo"
     }
   ],
-  "gitHead": "73a46efea32c3f9a4833ed77896a216e3d3752a0",
+  "gitHead": "5899c8aec0600dca42d7e24fc215037aa48917f2",
   "homepage": "https://github.com/ethers-io/ethers.js#readme",
   "keywords": [
     "Ethereum",
@@ -62,20 +68,22 @@
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "./lib.esm/index.js",
-  "name": "@ethersproject/base64",
+  "name": "@ethersproject/bytes",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
-    "directory": "packages/base64",
+    "directory": "packages/bytes",
     "type": "git",
     "url": "git://github.com/ethers-io/ethers.js.git"
   },
   "scripts": {
+    "auto-build": "npm run build -- -w",
+    "build": "tsc -p ./tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "sideEffects": false,
-  "tarballHash": "0xd41aeec849d5c477d67777f87429f2494a37e758d237433bd25664427acae89c",
+  "tarballHash": "0x1daef684cc067d9e39c56da0288767a1d0d210074513e60fac0b86d8243278fc",
   "types": "./lib/index.d.ts",
   "version": "5.5.0"
 }
