@@ -1,27 +1,36 @@
 /**
- * @module @truffle/preserve-to-buckets
+ * @module @truffle/preserve-to-filecoin
  */ /** */
-import * as Preserve from "@truffle/preserve";
 import type CID from "cids";
-export interface ExecuteOptions {
-    "fs-target": Preserve.Target;
+import * as Preserve from "@truffle/preserve";
+import { StorageDealOptions } from "./storage";
+export declare const defaultAddress = "http://localhost:7777/rpc/v0";
+export declare const defaultStorageDealOptions: {
+    epochPrice: string;
+    duration: number;
+};
+export interface ConstructorOptions extends Preserve.Recipes.ConstructorOptions {
+    address: string;
+    token?: string;
+    storageDealOptions?: StorageDealOptions;
+}
+export interface PreserveOptions extends Preserve.Recipes.ExecuteOptions {
+    inputs: {
+        "fs-target": Preserve.Target;
+        "ipfs-cid": CID;
+    };
 }
 export interface Result {
-    "ipfs-cid": CID;
-}
-export interface ConstructorOptions extends Preserve.Recipes.ConstructorOptions {
-    key: string;
-    secret: string;
-    bucketName: string;
+    "filecoin-deal-cid": CID;
 }
 export declare class Recipe implements Preserve.Recipe {
     name: string;
     static help: string;
     inputLabels: string[];
     outputLabels: string[];
-    private key;
-    private secret;
-    private bucketName;
+    private address;
+    private token?;
+    private storageDealOptions?;
     constructor(options: ConstructorOptions);
-    execute(options: Preserve.Recipes.ExecuteOptions): Preserve.Process<Result>;
+    execute(options: PreserveOptions): Preserve.Process<Result>;
 }

@@ -1,6 +1,6 @@
 "use strict";
 /**
- * @module @truffle/preserve-to-buckets
+ * @module @truffle/preserve-to-filecoin
  */ /** */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -46,40 +46,50 @@ var __asyncGenerator = (this && this.__asyncGenerator) || function (thisArg, _ar
     function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Recipe = void 0;
+exports.Recipe = exports.defaultStorageDealOptions = exports.defaultAddress = void 0;
 const Preserve = __importStar(require("@truffle/preserve"));
-const clear_1 = require("./clear");
 const connect_1 = require("./connect");
-const upload_1 = require("./upload");
-// @textile/hub requires a WebSocket API to be available on the global object
-if (typeof global !== "undefined")
-    global.WebSocket = require('isomorphic-ws');
+const miners_1 = require("./miners");
+const storage_1 = require("./storage");
+const wait_1 = require("./wait");
+exports.defaultAddress = "http://localhost:7777/rpc/v0";
+exports.defaultStorageDealOptions = {
+    epochPrice: "250",
+    duration: 518400,
+};
 class Recipe {
     constructor(options) {
-        this.name = "@truffle/preserve-to-buckets";
-        this.inputLabels = ["fs-target"];
-        this.outputLabels = ["ipfs-cid"];
-        this.key = options.key;
-        this.secret = options.secret;
-        this.bucketName = options.bucketName;
+        this.name = "@truffle/preserve-to-filecoin";
+        this.inputLabels = ["fs-target", "ipfs-cid"];
+        this.outputLabels = ["filecoin-deal-cid"];
+        this.address = options.address || exports.defaultAddress;
+        this.token = options.token;
+        this.storageDealOptions = Object.assign(Object.assign({}, exports.defaultStorageDealOptions), options.storageDealOptions);
     }
     execute(options) {
         return __asyncGenerator(this, arguments, function* execute_1() {
+            const { address: url, token, storageDealOptions } = this;
             const { inputs, controls } = options;
             const { update } = controls;
-            const { key, secret, bucketName } = this;
-            const target = Preserve.Targets.normalize(inputs["fs-target"]);
-            if (Preserve.Targets.Sources.isContent(target.source)) {
-                throw new Error("@truffle/preserve-to-buckets only supports preserving directories.");
+            if (Preserve.Targets.Sources.isContent(inputs["fs-target"].source)) {
+                throw new Error("@truffle/preserve-to-filecoin only supports preserving directories at this time.");
             }
-            yield __await(yield* __asyncDelegator(__asyncValues(update({ message: "Preserving to Textile Buckets..." }))));
-            const { buckets, bucketKey } = yield __await(yield* __asyncDelegator(__asyncValues(connect_1.connect({ key, secret, bucketName, controls }))));
-            yield __await(yield* __asyncDelegator(__asyncValues(clear_1.clear({ buckets, bucketKey, controls }))));
-            const { cid } = yield __await(yield* __asyncDelegator(__asyncValues(upload_1.upload({ target, buckets, bucketKey, controls }))));
-            return yield __await({ "ipfs-cid": cid });
+            const cid = inputs["ipfs-cid"];
+            yield __await(yield* __asyncDelegator(__asyncValues(update({ message: "Preserving to Filecoin..." }))));
+            const client = yield __await(yield* __asyncDelegator(__asyncValues(connect_1.connect({ url, token, controls }))));
+            const miners = yield __await(yield* __asyncDelegator(__asyncValues(miners_1.getMiners({ client, controls }))));
+            const { dealCid } = yield __await(yield* __asyncDelegator(__asyncValues(storage_1.proposeStorageDeal({
+                cid,
+                client,
+                storageDealOptions,
+                miners,
+                controls
+            }))));
+            yield __await(yield* __asyncDelegator(__asyncValues(wait_1.wait({ client, dealCid, controls }))));
+            return yield __await({ "filecoin-deal-cid": dealCid });
         });
     }
 }
 exports.Recipe = Recipe;
-Recipe.help = "Preserve to Textile Buckets";
+Recipe.help = "Preserve to Filecoin";
 //# sourceMappingURL=index.js.map

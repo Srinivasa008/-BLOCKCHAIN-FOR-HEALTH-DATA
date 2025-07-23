@@ -1,27 +1,27 @@
 {
-  "_from": "cids@^1.1.4",
+  "_from": "cids@^1.1.5",
   "_id": "cids@1.1.9",
   "_inBundle": false,
   "_integrity": "sha512-l11hWRfugIcbGuTZwAM5PwpjPPjyb6UZOGwlHSnOBV5o07XhQ4gNpBN67FbODvpjyHtd+0Xs6KNvUcGBiDRsdg==",
-  "_location": "/@textile/buckets/cids",
+  "_location": "/@truffle/preserve-to-buckets/cids",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "cids@^1.1.4",
+    "raw": "cids@^1.1.5",
     "name": "cids",
     "escapedName": "cids",
-    "rawSpec": "^1.1.4",
+    "rawSpec": "^1.1.5",
     "saveSpec": null,
-    "fetchSpec": "^1.1.4"
+    "fetchSpec": "^1.1.5"
   },
   "_requiredBy": [
-    "/@textile/buckets"
+    "/@truffle/preserve-to-buckets"
   ],
   "_resolved": "https://registry.npmjs.org/cids/-/cids-1.1.9.tgz",
   "_shasum": "402c26db5c07059377bcd6fb82f2a24e7f2f4a4f",
-  "_spec": "cids@^1.1.4",
-  "_where": "E:\\manoj\\November21\\hello-eth\\node_modules\\@textile\\buckets",
+  "_spec": "cids@^1.1.5",
+  "_where": "E:\\manoj\\November21\\hello-eth\\node_modules\\@truffle\\preserve-to-buckets",
   "bugs": {
     "url": "https://github.com/multiformats/js-cid/issues"
   },

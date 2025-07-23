@@ -1,13 +1,14 @@
+import { LotusClient } from "filecoin.js";
 import type * as Preserve from "@truffle/preserve";
-import { Buckets } from "@textile/hub";
 export interface ConnectOptions {
+    url: string;
+    token?: string;
     controls: Preserve.Controls;
-    key: string;
-    secret: string;
-    bucketName: string;
 }
-export interface ConnectResult {
-    buckets: Buckets;
-    bucketKey: string;
+export declare function connect(options: ConnectOptions): Preserve.Process<LotusClient>;
+interface CreateLotusClientOptions {
+    url: string;
+    token?: string;
 }
-export declare function connect(options: ConnectOptions): Preserve.Process<ConnectResult>;
+export declare const createLotusClient: (options: CreateLotusClientOptions) => LotusClient;
+export {};

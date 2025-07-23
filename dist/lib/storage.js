@@ -23,40 +23,50 @@ var __asyncGenerator = (this && this.__asyncGenerator) || function (thisArg, _ar
     function reject(value) { resume("throw", value); }
     function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createLotusClient = exports.connect = void 0;
-const filecoin_js_1 = require("filecoin.js");
-function connect(options) {
-    return __asyncGenerator(this, arguments, function* connect_1() {
-        const { url, token, controls } = options;
+exports.proposeStorageDeal = void 0;
+const chalk_1 = __importDefault(require("chalk"));
+const cids_1 = __importDefault(require("cids"));
+function proposeStorageDeal(options) {
+    return __asyncGenerator(this, arguments, function* proposeStorageDeal_1() {
+        const { cid, client, storageDealOptions, miners, controls } = options;
+        const { walletAddress, epochPrice, duration } = storageDealOptions;
         const { step } = controls;
         const task = yield __await(yield* __asyncDelegator(__asyncValues(step({
-            message: `Connecting to Filecoin node at ${url}...`
+            message: "Proposing storage deal..."
         }))));
-        const client = exports.createLotusClient({ url, token });
+        const dealCidResolution = yield __await(yield* __asyncDelegator(__asyncValues(task.declare({
+            identifier: "Deal CID"
+        }))));
+        const wallet = walletAddress || (yield __await(client.wallet.getDefaultAddress()));
+        // TODO: Allow making a deal with multiple miners
+        const storageProposal = {
+            Data: {
+                TransferType: "graphsync",
+                Root: { "/": cid.toString() }
+            },
+            Wallet: wallet,
+            Miner: miners[0],
+            EpochPrice: epochPrice,
+            MinBlocksDuration: duration
+        };
         try {
-            // TODO: Ideally I'd retrieve the version instead of ID, but that RPC method
-            // is broken in textile's localnet.
-            const id = yield __await(client.common.id());
-            yield __await(yield* __asyncDelegator(__asyncValues(task.succeed({
-                result: id,
-                message: `Connected to Filecoin node at ${url}`
+            const result = yield __await(client.client.startDeal(storageProposal));
+            const dealCid = new cids_1.default(result["/"]);
+            yield __await(yield* __asyncDelegator(__asyncValues(dealCidResolution.resolve({
+                resolution: dealCid,
+                payload: chalk_1.default.bold(dealCid.toString())
             }))));
+            yield __await(yield* __asyncDelegator(__asyncValues(task.succeed())));
+            return yield __await({ dealCid });
         }
         catch (error) {
             yield __await(yield* __asyncDelegator(__asyncValues(task.fail({ error }))));
         }
-        return yield __await(client);
     });
 }
-exports.connect = connect;
-const createLotusClient = (options) => {
-    const { url, token } = options;
-    const connector = url.startsWith("ws")
-        ? new filecoin_js_1.WsJsonRpcConnector({ url, token })
-        : new filecoin_js_1.HttpJsonRpcConnector({ url, token });
-    const client = new filecoin_js_1.LotusClient(connector);
-    return client;
-};
-exports.createLotusClient = createLotusClient;
-//# sourceMappingURL=connect.js.map
+exports.proposeStorageDeal = proposeStorageDeal;
+//# sourceMappingURL=storage.js.map
