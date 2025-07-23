@@ -1,35 +1,55 @@
-# Truffle Codec
+# `@truffle/db`
 
-This module, `@truffle/codec`, provides an interface for decoding Solidity
-smart contract state as well as information sent to or from smart contracts
-using the Solidity ABI.  It produces output in a machine-readable form that
-avoids losing any information.  It also has some rudimentary encoding
-functionality, that will be expanded in the future.  This module is also
-what Truffle Debugger uses for its decoding.
+Truffle DB is a complete, flexible system for the querying and mutation
+of Truffle’s smart contract records. Following the data model available [here](https://trufflesuite.github.io/artifact-updates/data-model.html),
+Truffle DB persists smart contract information that is typically found in
+a project's artifacts, and allows for querying this data using `GraphQL`.
 
-This is a low-level module, and it's probable that you should use the
-higher-level interface [Truffle Decoder](../decoder/) instead.  That said, if
-for whatever reason Truffle Decoder will not suffice for your use case, it's
-possible that you may need to use this.
+</br>
 
-## Install
+Truffle artifacts are currently stored as JSON files in a project’s `build/contracts/`
+directory. These documents are currently the canonical source of information about
+a project’s smart contracts. While useful, artifacts can be limited for certain advanced
+use cases.
+
+</br>
+
+For example, the artifacts format expects contracts with unique names.
+This means that currently a developer is unable to keep two contracts in their project
+that have the same name. Truffle DB solves this problem with a name record-keeping
+system that can keep track of multiple contracts in this situation.
+
+## Built With
+
+Truffle DB is built with:
+- TypeScript
+- GraphQL
+- Apollo
+- PouchDB
+
+## Configuration to enable Truffle DB
+
+Add the following to your `truffle-config.js` file in order to enable Truffle DB
 
 ```
-$ npm install --save @truffle/codec
+db: {
+  enabled: true
+}
 ```
+Note: Enabling Truffle DB does not affect artifacts, but will produce a new `.db`
+directory when you compile or migrate your project.
 
-This module does not provide a CLI; it is entirely meant to be used as part
-of a larger JavaScript or TypeScript program.
 
-## Usage and Documentation
+It will soon be possible to load and access Truffle DB data via `truffle compile` and `truffle migrate`.
+Stay tuned!
 
-This module has some [API
-documentation](https://www.trufflesuite.com/docs/truffle/codec/index.html),
-which you should see for further usage information.  Note that as this is a
-low-level module mostly intended for internal Truffle use, its documentation is
-sparse at the moment.
+## Usage
+
+```
+const { connect } = require("@truffle/db")
+
+```
 
 ## License
 
-As part of the larger [Truffle Suite](https://github.com/trufflesuite/truffle/),
-this module is MIT-licensed.
+MIT
