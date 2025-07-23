@@ -3,7 +3,7 @@
   "_id": "multicodec@3.2.1",
   "_inBundle": false,
   "_integrity": "sha512-+expTPftro8VAW8kfvcuNNNBgb9gPeNYV9dn+z1kJRWF2vih+/S79f2RVeIwmrJBUJ6NT9IUPWnZDQvegEh5pw==",
-  "_location": "/@textile/buckets/multicodec",
+  "_location": "/@truffle/preserve-to-buckets/multicodec",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
@@ -16,12 +16,12 @@
     "fetchSpec": "^3.0.1"
   },
   "_requiredBy": [
-    "/@textile/buckets/cids"
+    "/@truffle/preserve-to-buckets/cids"
   ],
   "_resolved": "https://registry.npmjs.org/multicodec/-/multicodec-3.2.1.tgz",
   "_shasum": "82de3254a0fb163a107c1aab324f2a91ef51efb2",
   "_spec": "multicodec@^3.0.1",
-  "_where": "E:\\manoj\\November21\\hello-eth\\node_modules\\@textile\\buckets\\node_modules\\cids",
+  "_where": "E:\\manoj\\November21\\hello-eth\\node_modules\\@truffle\\preserve-to-buckets\\node_modules\\cids",
   "aegir": {
     "build": {
       "bundlesizeMax": "15kB"

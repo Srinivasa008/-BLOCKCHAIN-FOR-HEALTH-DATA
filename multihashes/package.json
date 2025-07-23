@@ -3,7 +3,7 @@
   "_id": "multihashes@4.0.3",
   "_inBundle": false,
   "_integrity": "sha512-0AhMH7Iu95XjDLxIeuCOOE4t9+vQZsACyKZ9Fxw2pcsRmlX4iCn1mby0hS0bb+nQOVpdQYWPpnyusw4da5RPhA==",
-  "_location": "/@textile/buckets/multihashes",
+  "_location": "/@truffle/preserve-to-buckets/multihashes",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
@@ -16,12 +16,12 @@
     "fetchSpec": "^4.0.1"
   },
   "_requiredBy": [
-    "/@textile/buckets/cids"
+    "/@truffle/preserve-to-buckets/cids"
   ],
   "_resolved": "https://registry.npmjs.org/multihashes/-/multihashes-4.0.3.tgz",
   "_shasum": "426610539cd2551edbf533adeac4c06b3b90fb05",
   "_spec": "multihashes@^4.0.1",
-  "_where": "E:\\manoj\\November21\\hello-eth\\node_modules\\@textile\\buckets\\node_modules\\cids",
+  "_where": "E:\\manoj\\November21\\hello-eth\\node_modules\\@truffle\\preserve-to-buckets\\node_modules\\cids",
   "aegir": {
     "build": {
       "bundlesizeMax": "10.3kB"
